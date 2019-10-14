@@ -31,7 +31,7 @@ export class Game {
 
     constructor() {
         this.hero = new Hero(this.registerMoveable.bind(this), 575, 700);
-        this.wave = new EnemyWave(this.registerMoveable.bind(this), ENEMY_DEFAULT_POS.map(pos => new Enemy(pos.left, pos.top)));
+        this.wave = new EnemyWave(this.registerMoveable.bind(this), ENEMY_DEFAULT_POS.map(pos => new Enemy(this.registerMoveable.bind(this), pos.left, pos.top)));
     }
 
     registerMoveable(mobile: MoveableRectangle): void {
@@ -41,7 +41,13 @@ export class Game {
     loop(deltaTime: number) {
         this.mobiles.forEach(m => m.move(deltaTime));
         this.collisionDetection();
-        console.log(deltaTime)
+        console.log(deltaTime);
+        if(Math.random() < .1) {
+            const rdnEnemy = Math.floor(Math.random() * this.wave.enemies.length);
+            const en = this.wave.enemies[rdnEnemy];
+            en.fireMissile();
+            console.log('missile');
+        }
     }
 
 

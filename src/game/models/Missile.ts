@@ -7,7 +7,8 @@ export class Missile extends MoveableRectangle {
     verticalSpeed = -1;
     horizontalSpeed = 0;
 
-    constructor(protected registerMoveable: (MoveableRectangle) => void, left: number, top: number) {
-        super(registerMoveable, left, top, Missile.WIDTH, Missile.HEIGHT)
+    constructor(protected registerMoveable: (MoveableRectangle) => void, left: number, top: number, verticalSpeed: number = -1) {
+        super(registerMoveable, left, top, Missile.WIDTH, Missile.HEIGHT);
+        this.verticalSpeed = verticalSpeed;
     }
 }

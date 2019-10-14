@@ -21,7 +21,7 @@ export const Playground: React.FC<{ game: Game }> = ({game}) => {
              tabIndex={0}
              ref={thisRef}>
             <Hero hero={game.hero}/>
-            <Missiles missiles={game.hero.missiles}/>
+            <Missiles missiles={game.hero.missiles.concat(game.wave.enemies.flatMap(enemy => enemy.missiles))}/>
             <Enemies enemies={game.wave.enemies}/>
         </div>
     );

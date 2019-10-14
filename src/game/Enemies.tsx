@@ -14,3 +14,4 @@ export const Enemies: React.FC<{ enemies: EnemyModel[] }> = ({enemies}) => {
         </div>
     );
 };
+

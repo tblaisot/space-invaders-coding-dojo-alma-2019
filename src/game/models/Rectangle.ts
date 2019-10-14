@@ -1,5 +1,5 @@
-export abstract class Rectangle {
-    protected constructor(
+export class Rectangle {
+    constructor(
         private _left: number,
         private _top: number,
         private _width: number,
@@ -48,9 +48,9 @@ export const detectCollision = (rect1: Rectangle, rect2: Rectangle) => {
 };
 
 export const isOutside = (rect1: Rectangle, zone: Rectangle) => {
-    return rect1.left < zone.left &&
-        rect1.right > zone.right &&
-        rect1.top < zone.top &&
+    return rect1.left < zone.left ||
+        rect1.right > zone.right ||
+        rect1.top < zone.top ||
         rect1.bottom > zone.bottom;
 };
 

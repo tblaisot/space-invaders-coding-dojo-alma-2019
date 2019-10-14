@@ -1,7 +1,7 @@
 import { Hero } from './Hero';
 import { Enemy } from './Enemy';
 import { Missile } from './Missile';
-import { detectCollision, MoveableRectangle } from './Rectangle';
+import { detectCollision, MoveableRectangle, Rectangle, isOutside } from './Rectangle';
 import { EnemyWave } from './EnemyWave';
 
 const ENEMY_DEFAULT_POS = [
@@ -28,6 +28,7 @@ export class Game {
     hero: Hero;
     wave: EnemyWave;
 
+    private playground = new Rectangle(0,0,1200,800)
     private mobiles: MoveableRectangle[] = [];
 
     constructor() {
@@ -42,7 +43,7 @@ export class Game {
     loop(deltaTime: number) {
         this.mobiles.forEach(m => m.move(deltaTime));
         this.collisionDetection();
-        if(Math.random() < .1) {
+        if(Math.random() < .05) {
             const rdnEnemy = Math.floor(Math.random() * this.wave.enemies.length);
             const en = this.wave.enemies[rdnEnemy];
             en.fireMissile();
@@ -68,13 +69,22 @@ export class Game {
                 }
 
             this.wave.enemies[enemyIndex].missiles.forEach(
-                (missile: Missile) => {
+                (missile: Missile, index: number) => {
 
                     if (detectCollision(this.hero, missile)) {
                         (window.location as any).reload();
                     }
+                    if (isOutside(missile,this.playground)) {
+                        this.wave.enemies[enemyIndex].missiles.splice(index, 1);
+                    }
                 }
             )
+        }
+        if (
+            this.wave.bottom >= 799
+        )
+        {
+            (window.location as any).reload();
         }
     }
 }

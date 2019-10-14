@@ -56,6 +56,11 @@ export class Game {
                     this.hero.missiles.splice(missile, 1);
                 }
             }
+            if (
+                detectCollision(this.hero, this.wave.enemies[enemy])
+            )  {
+                    (window.location as any).reload();
+                }
         }
     }
 }

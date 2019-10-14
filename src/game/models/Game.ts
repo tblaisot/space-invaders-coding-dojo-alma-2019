@@ -30,6 +30,7 @@ export class Game {
 
     private playground = new Rectangle(0,0,1200,800)
     private mobiles: MoveableRectangle[] = [];
+    public score: number = 0;
 
     constructor() {
         this.hero = new Hero(this.registerMoveable.bind(this), 575, 700);
@@ -60,6 +61,7 @@ export class Game {
                     // such a bad idea :)
                     this.wave.enemies.splice(enemyIndex, 1);
                     this.hero.missiles.splice(missileIndex, 1);
+                    this.score++;
                 }
             }
             if (

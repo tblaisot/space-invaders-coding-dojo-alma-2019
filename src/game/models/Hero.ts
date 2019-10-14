@@ -6,7 +6,7 @@ export class Hero extends MoveableRectangle {
     static WIDTH = 50;
     static HEIGHT = 50;
 
-    static MAX_VERTICAL_SPEED = 0;
+    static MAX_VERTICAL_SPEED = 0.1;
     static MAX_HORIZONTAL_SPEED = 0.1;
 
     verticalSpeed = 0;
@@ -20,15 +20,41 @@ export class Hero extends MoveableRectangle {
 
 
     accelerateLeft() {
-        this.verticalSpeed = 0;
-        this.horizontalSpeed = -Hero.MAX_HORIZONTAL_SPEED;
+        if(this.left > 100) {
+            this.verticalSpeed = 0;
+            this.horizontalSpeed = -Hero.MAX_HORIZONTAL_SPEED;
+        } else {
+            this.horizontalSpeed = 0;
+        }
+
     }
 
     accelerateRight() {
-        this.verticalSpeed = 0;
-        this.horizontalSpeed = Hero.MAX_HORIZONTAL_SPEED;
+        if(this.right < 1100) {
+            this.verticalSpeed = 0;
+            this.horizontalSpeed = Hero.MAX_HORIZONTAL_SPEED;
+        } else {
+            this.horizontalSpeed = 0;
+        }
     }
 
+    accelerateDown() {
+        if(this.bottom < 800) {
+            this.verticalSpeed = Hero.MAX_VERTICAL_SPEED;
+            this.horizontalSpeed = 0;
+        } else {
+            this.verticalSpeed = 0;
+        }
+    }
+    
+    accelerateUp() {
+        if(this.top > 50) {
+            this.verticalSpeed = -Hero.MAX_VERTICAL_SPEED;
+            this.horizontalSpeed = 0;
+        } else {
+            this.verticalSpeed = 0;
+        }
+    }
     stop() {
         this.verticalSpeed = 0;
         this.horizontalSpeed = 0;
@@ -43,10 +69,18 @@ export class Hero extends MoveableRectangle {
             // Right
             this.accelerateRight();
         }
+        if (key === 'ArrowUp') {
+            // Right
+            this.accelerateUp();
+        }
+        if (key === 'ArrowDown') {
+            // Right
+            this.accelerateDown();
+        }
     }
 
     handleKeyUp(key: string) {
-        if (key === 'ArrowLeft' || key === 'ArrowRight') {
+        if (key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown') {
             // Left
             this.stop();
         }

@@ -42,12 +42,10 @@ export class Game {
     loop(deltaTime: number) {
         this.mobiles.forEach(m => m.move(deltaTime));
         this.collisionDetection();
-        console.log(deltaTime);
         if(Math.random() < .1) {
             const rdnEnemy = Math.floor(Math.random() * this.wave.enemies.length);
             const en = this.wave.enemies[rdnEnemy];
             en.fireMissile();
-            console.log('missile');
         }
     }
 
@@ -68,7 +66,7 @@ export class Game {
             )  {
                     (window.location as any).reload();
                 }
-                
+
             this.wave.enemies[enemyIndex].missiles.forEach(
                 (missile: Missile) => {
 

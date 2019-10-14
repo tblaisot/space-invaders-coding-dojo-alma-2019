@@ -13,6 +13,6 @@ export class Enemy extends Rectangle {
     }
 
     fireMissile() {
-        this.missiles.push(new Missile(this.registerMoveable, this.left + (this.width / 2 - Missile.WIDTH), this.top - Missile.HEIGHT, 1))
+        this.missiles.push(new Missile(this.registerMoveable, this.left + (this.width / 2 - Missile.WIDTH), this.top + Missile.HEIGHT, 0.08))
     }
 }

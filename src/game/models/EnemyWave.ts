@@ -2,8 +2,10 @@ import { Enemy } from './Enemy';
 import { MoveableRectangle } from './Rectangle';
 
 export class EnemyWave extends MoveableRectangle {
-    verticalSpeed = 0.1;
-    horizontalSpeed = 0;
+
+    horizontalSpeed = 0.08
+    verticalSpeed = 0
+    delta = 0;
 
     constructor(protected registerMoveable: (MoveableRectangle) => void, public enemies: Enemy[]) {
         super(registerMoveable, 0, 0, 0, 0)
@@ -38,6 +40,16 @@ export class EnemyWave extends MoveableRectangle {
     }
 
     move(deltaTime: number) {
+        if(this.right > 1100 && this.horizontalSpeed >= 0) {
+            this.verticalSpeed = 0.08
+            this.horizontalSpeed = 0
+            this.delta += deltaTime
+            if(this.delta >= 1000) {
+                this.verticalSpeed = 0
+                this.horizontalSpeed = -0.08
+            }
+            
+        }
         this.offset(this.horizontalSpeed * deltaTime, this.verticalSpeed * deltaTime);
     }
 }

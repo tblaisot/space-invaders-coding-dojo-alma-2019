@@ -47,7 +47,6 @@ export const App: React.FC = () => {
     if (game && game.current) {
         playground = (<Playground game={game.current as Game}/>)
     }
-    console.log("refresh")
     return (
         <div className="App">
             <header className="App-header"></header>

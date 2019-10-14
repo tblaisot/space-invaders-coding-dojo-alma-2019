@@ -1,5 +1,6 @@
 import { Hero } from './Hero';
 import { Enemy } from './Enemy';
+import { Missile } from './Missile';
 import { detectCollision, MoveableRectangle } from './Rectangle';
 import { EnemyWave } from './EnemyWave';
 
@@ -52,21 +53,30 @@ export class Game {
 
 
     collisionDetection() {
-        for (var enemy = 0; enemy < this.wave.enemies.length; enemy++) {
-            for (var missile = 0; missile < this.hero.missiles.length; missile++) {
+        for (var enemyIndex = 0; enemyIndex < this.wave.enemies.length; enemyIndex++) {
+            for (var missileIndex = 0; missileIndex < this.hero.missiles.length; missileIndex++) {
                 if (
-                    detectCollision(this.hero.missiles[missile], this.wave.enemies[enemy])
+                    detectCollision(this.hero.missiles[missileIndex], this.wave.enemies[enemyIndex])
                 ) {
                     // such a bad idea :)
-                    this.wave.enemies.splice(enemy, 1);
-                    this.hero.missiles.splice(missile, 1);
+                    this.wave.enemies.splice(enemyIndex, 1);
+                    this.hero.missiles.splice(missileIndex, 1);
                 }
             }
             if (
-                detectCollision(this.hero, this.wave.enemies[enemy])
+                detectCollision(this.hero, this.wave.enemies[enemyIndex])
             )  {
                     (window.location as any).reload();
                 }
+                
+            this.wave.enemies[enemyIndex].missiles.forEach(
+                (missile: Missile) => {
+
+                    if (detectCollision(this.hero, missile)) {
+                        (window.location as any).reload();
+                    }
+                }
+            )
         }
     }
 }

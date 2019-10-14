@@ -47,9 +47,23 @@ export class EnemyWave extends MoveableRectangle {
             if(this.delta >= 1000) {
                 this.verticalSpeed = 0
                 this.horizontalSpeed = -0.08
+                this.delta = 0
             }
             
         }
+
+        if(this.left < 100 && this.horizontalSpeed <= 0) {
+            this.verticalSpeed = 0.08
+            this.horizontalSpeed = 0
+            this.delta += deltaTime
+            if(this.delta >= 1000) {
+                this.verticalSpeed = 0
+                this.horizontalSpeed = 0.08
+                this.delta = 0
+            }
+            
+        }
+
         this.offset(this.horizontalSpeed * deltaTime, this.verticalSpeed * deltaTime);
     }
 }
